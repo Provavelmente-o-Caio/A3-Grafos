@@ -39,3 +39,26 @@ class GrafoDirigido(Grafo):
                 self.arestas.append(Aresta(v1, v2))
 
                 v1.add_aresta(v2)
+
+    def add_aresta(self, aresta: Aresta):
+        v = aresta.get_v1()
+        u = aresta.get_v2()
+        peso = aresta.get_peso()
+
+        self.arestas.append(Aresta(v, u))
+
+        v.add_aresta(u, peso)
+
+    def set_peso(self, aresta: Aresta, peso: int):
+        v = aresta.get_v1()
+        u = aresta.get_v2()
+        peso = aresta.get_peso()
+
+        for aresta_existente in self.arestas:
+            if aresta_existente == aresta:
+                aresta_existente.set_peso(peso)
+
+    def get_aresta_uv(self, u: int, v: int) -> Aresta:
+        for aresta in self.arestas:
+            if aresta.get_v1().get_index() == u and aresta.get_v2().get_index() == v:
+                return aresta

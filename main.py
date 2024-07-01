@@ -1,9 +1,7 @@
 import sys
 from src.GrafoNaoDirigido import GrafoNaoDirigido
 from src.GrafoDirigido import GrafoDirigido
-from Questao1.CFC import CFC
-from Questao2.ordenacaoTopologica import ordenacaoTopologica
-from Questao3.Prim import Prim
+from Questao1.A3_1 import fluxo_maximo
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
@@ -23,24 +21,22 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print("Arquivo não encontrado")
 
-    if nome_algoritmo != 'ALL' and (not nome_algoritmo.isdigit() or int(nome_algoritmo) > 5 or int(nome_algoritmo) < 1):
+    if nome_algoritmo != 'ALL' and (not nome_algoritmo.isdigit() or int(nome_algoritmo) > 3 or int(nome_algoritmo) < 1):
         print("O número da questão deve estar entre os valores para a entrega. Ou ALL para rodar todas as questões")
         sys.exit(1)
 
     if nome_algoritmo == "1" or nome_algoritmo == "ALL":
         print()
-        print("Componentes Fortemente Conexas")
+        print("Edmonds Karp")
         print()
-        CFC(grafo_dirigido)
+        print(fluxo_maximo(grafo_dirigido, grafo_dirigido.get_vertices()[0], grafo_dirigido.get_vertices()[grafo_dirigido.qtdVertices()-1]))
 
     if nome_algoritmo == "2" or nome_algoritmo == "ALL":
         print()
-        print("Ordenação Topológica")
+        print("Hopcroft-Karp")
         print()
-        ordenacaoTopologica(grafo_dirigido)
 
     if nome_algoritmo == "3" or nome_algoritmo == "ALL":
         print()
-        print("Prim")
+        print("Coloração de Vértices")
         print()
-        Prim(grafo_nao)

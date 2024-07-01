@@ -40,3 +40,9 @@ class GrafoNaoDirigido(Grafo):
 
                 v1.add_aresta(v2, peso)
                 v2.add_aresta(v1, peso)
+
+    def get_aresta_uv(self, u: int, v: int) -> Aresta:
+        for aresta in self.arestas:
+            if ((aresta.get_v1().get_index() == u and aresta.get_v2().get_index() == v) or
+                    (aresta.get_v1().get_index() == v and aresta.get_v2().get_index() == u)):
+                return aresta
