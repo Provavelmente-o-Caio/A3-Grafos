@@ -20,7 +20,7 @@ grafo_dirigido = GrafoDirigido()
 grafo_nao = GrafoNaoDirigido()
 
 try:
-    grafo_dirigido.ler("./A3-Grafos/Testes/oii.txt")
+    grafo_dirigido.ler("./Testes/fluxo.txt")
 except FileNotFoundError:
     print("Arquivo não encontrado")
 
@@ -33,13 +33,9 @@ print()
 print("Fluxo Máximo")
 print()
 ed = EdmondsKarp(grafo_dirigido)
-s = None
-t = None
-for V in grafo_dirigido.get_vertices():
-    if V.get_rotulo() == 's':
-        s = V
-    elif V.get_rotulo() == 't':
-        t = V
+v = grafo_dirigido.get_vertices()
+s = v[0]
+t = v[len(v)-1]
 
 ed.edmonds_karp(s, t)
 '''
