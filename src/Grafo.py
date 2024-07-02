@@ -47,6 +47,12 @@ class Grafo:
         else:
             return False
 
+    def temAresta(self, u: Vertice, v: Vertice) -> bool:
+        if v in u.get_arestas().keys():
+            return True
+        else:
+            return False
+
     def peso(self, u: int, v: int) -> float:
         v1 = self.vertices[u - 1]
         v2 = self.vertices[v - 1]
