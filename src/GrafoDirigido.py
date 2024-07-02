@@ -21,7 +21,7 @@ class GrafoDirigido(Grafo):
                 lendo_vertices = True
                 continue
 
-            if "edges" in linha:
+            if "arcs" in linha:
                 lendo_vertices = False
                 lendo_arestas = True
                 continue
@@ -32,10 +32,16 @@ class GrafoDirigido(Grafo):
                 continue
 
             if lendo_arestas:
-                v1_index, v2_index, *args = linha.split()
+                peso = 999999
+                if len(linha.split()) == 2:
+                    v1_index, v2_index, *args = linha.split()
+                else:
+                    v1_index, v2_index, peso = linha.split()
                 v1 = self.vertices[int(v1_index)-1]
                 v2 = self.vertices[int(v2_index)-1]
 
-                self.arestas.append(Aresta(v1, v2))
-
+                if peso != 999999:
+                    self.arestas.append(Aresta(v1, v2, peso))
+                else:
+                    self.arestas.append(Aresta(v1, v2))
                 v1.add_aresta(v2)
