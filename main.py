@@ -17,11 +17,11 @@ if __name__ == '__main__':
     grafo_dirigido = GrafoDirigido()
     grafo_nao = GrafoNaoDirigido()
 
-    if nome_algoritmo != 'ALL' and (not nome_algoritmo.isdigit() or int(nome_algoritmo) > 3 or int(nome_algoritmo) < 1):
-        print("O número da questão deve estar entre os valores para a entrega. Ou ALL para rodar todas as questões")
+    if not nome_algoritmo.isdigit() or int(nome_algoritmo) > 3 or int(nome_algoritmo) < 1:
+        print("O número da questão deve estar entre os valores para a entrega.")
         sys.exit(1)
 
-    if nome_algoritmo == "1" or nome_algoritmo == "ALL":
+    if nome_algoritmo == "1":
         try:
             grafo_dirigido.ler("Testes/" + nome_arquivo)
         except FileNotFoundError:
@@ -37,7 +37,7 @@ if __name__ == '__main__':
         ed.edmonds_karp(s, t)
 
 
-    if nome_algoritmo == "2" or nome_algoritmo == "ALL":
+    if nome_algoritmo == "2":
         try:
             grafo_nao.ler("Testes/" + nome_arquivo)
         except FileNotFoundError:
@@ -48,7 +48,7 @@ if __name__ == '__main__':
         print()
         hopcroftKarp(grafo_nao)
 
-    if nome_algoritmo == "3" or nome_algoritmo == "ALL":
+    if nome_algoritmo == "3":
         try:
             grafo_nao.ler("Testes/" + nome_arquivo)
         except FileNotFoundError:
@@ -57,4 +57,4 @@ if __name__ == '__main__':
         print()
         print("Coloração de Vértice")
         print()
-        print(lawler(grafo_nao))
+        lawler(grafo_nao)

@@ -1,15 +1,13 @@
 import math
 import itertools
-from src.Vertice import Vertice
-from src.Aresta import Aresta
 from src.GrafoNaoDirigido import GrafoNaoDirigido
 
 
 def lawler(G: GrafoNaoDirigido):
     n = int(math.pow(2, G.qtdVertices()))
     cores_subconjuntos = [0] * n
-    subconjuntos = []
-    subconjuntos.append(listarSubconjuntos(G.get_vertices()))
+    subconjuntos = listarSubconjuntos(G.get_vertices())
+    #subconjuntos.append(listarSubconjuntos(G.get_vertices()))
 
     for subconjunto in subconjuntos:
         if len(subconjunto) != 0:
@@ -22,7 +20,9 @@ def lawler(G: GrafoNaoDirigido):
                 index_subconjunto_maximal = subconjuntos.index(subconjunto_menor)
                 if cores_subconjuntos[index_subconjunto_maximal] + 1 < cores_subconjuntos[index_subconjunto]:
                     cores_subconjuntos[index_subconjunto] = cores_subconjuntos[index_subconjunto_maximal] + 1
-    return cores_subconjuntos
+
+    print(cores_subconjuntos[-1])
+    pintarVertices(cores_subconjuntos[-1], G)
 
 
 def listarConjuntosIndependentesMaximais(G: GrafoNaoDirigido):
@@ -33,7 +33,7 @@ def listarConjuntosIndependentesMaximais(G: GrafoNaoDirigido):
         c = True
         for v in subset:
             for u in subset:
-                if G.haAresta(v.get_index(),u.get_index()):
+                if G.temAresta(v, u):
                     c = False
                     break
         if c:
@@ -42,8 +42,22 @@ def listarConjuntosIndependentesMaximais(G: GrafoNaoDirigido):
 
 def listarSubconjuntos(vertices):
     subconjuntos = []
-    for i in range(1, len(vertices)+1):
+    for i in range(len(vertices)+1):
         subconjunto = [list(x) for x in itertools.combinations(vertices, i)]
         subconjuntos.extend(subconjunto)
 
     return subconjuntos
+
+def pintarVertices(n_cores: int, G: GrafoNaoDirigido):
+    cores = [None] * G.qtdVertices()
+    for v in G.get_vertices():
+        for cor in range(n_cores):
+            cor_de_vizinho = False
+            for vizinho in G.vizinhos(v.get_index()):
+                if cores[vizinho.get_index()-1] == cor:
+                    cor_de_vizinho = True
+            if not cor_de_vizinho:
+                cores[v.get_index()-1] = cor
+                break
+
+    print(", ".join(map(str, cores)))
